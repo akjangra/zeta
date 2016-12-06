@@ -14,7 +14,7 @@ import zeta.android.apps.rx.providers.RxSchedulerProvider;
 @ParametersAreNonnullByDefault
 public class RxSubscriptionManager {
 
-    protected final RxSchedulerProvider mSchedulerProvider;
+    private final RxSchedulerProvider mSchedulerProvider;
     private final CompositeSubscription mCompositeSubscription;
 
     public RxSubscriptionManager(RxSchedulerProvider schedulerProvider) {

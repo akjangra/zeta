@@ -30,9 +30,9 @@ public class ZetaApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        final Context context = getApplicationContext();
+        final Context applicationContext = getApplicationContext();
         mZetaAppComponent = DaggerZetaAppComponent.builder()
-                .zetaAppModule(new ZetaAppModule(this, context))
+                .zetaAppModule(new ZetaAppModule(this, applicationContext))
                 .build();
         mZetaAppComponent.inject(this);
         mDeveloperTools.get().initialize(this);

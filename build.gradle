@@ -15,6 +15,7 @@ buildscript {
     }
 
     dependencies {
+        classpath gradlePlugins.aptPlugin
         classpath gradlePlugins.frodoPlugin
         classpath gradlePlugins.lombokPlugin
         classpath gradlePlugins.retroLambdaPlugin

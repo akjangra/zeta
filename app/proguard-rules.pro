@@ -89,13 +89,10 @@
 
 # Goofy
 -keepnames @com.google.android.gms.common.annotation.KeepName class *
-
 -keepnames class * extends android.support.v4.app.Fragment
-
 -keepclassmembernames class * {
     @com.google.android.gms.common.annotation.KeepName *;
 }
-
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
@@ -197,4 +194,8 @@
 
 #Mockito
 -dontwarn org.mockito.**
+
+# To remove Warnings
+-keepattributes InnerClasses
+-dontoptimize
 

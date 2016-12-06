@@ -1,0 +1,106 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.fernandocejas.frodo'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    // NOTE: you must uncomment this to use Frodo on myntra engine, but DO NOT commit the change!
+    // This flag forces myntra engine to build as debug *regardless of the build selected for the app
+    // module!*
+    // defaultPublishConfig "debug"
+
+    defaultConfig {
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+        versionCode 1
+        versionName "0.1"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file("../lint.xml")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    //compile project(':common')
+
+    compile libraries.supportAppCompat
+    compile libraries.dagger
+    apt libraries.daggerCompiler
+
+    compile libraries.timber
+
+    compile libraries.zetaUtils
+    compile libraries.zetaEither
+
+    compile libraries.retrofit
+    compile libraries.retrofitRxAdapter
+    compile libraries.retrofitGsonConverter
+
+    compile libraries.rxJava
+    compile libraries.rxAndroid
+    compile libraries.persistentCookieJar
+
+    provided libraries.autoValue
+    provided libraries.autoValueParcelAdapter
+    apt libraries.autoValueParcel
+
+    compile libraries.ormlite
+
+    compile libraries.javaxAnnotationApi
+    compile libraries.jsr305
+
+    testCompile libraries.junit
+    testCompile libraries.retrofitMock
+    testCompile libraries.orgDotJson
+    testCompile libraries.mockitoCore
+
+    androidTestCompile libraries.supportTestRunner
+    androidTestCompile libraries.supportTestRules
+}
+
+frodo {
+    enabled = false
+}
+
+preBuild {
+    doFirst {
+        // auto-value emits the below mentioned false warning, which fails the build because of
+        // the -Werror flag.
+        // > warning: @AutoValue classes cannot have abstract methods other than property getters and Builder converters)
+
+        // Apparently, this is going to be fixed in the next version of Auto-Value per
+        // https://github.com/google/auto/issues/286 and we shall un-comment it once we have a new version of auto-value.
+
+        /* android.applicationVariants.each {
+             // 'it' is the name for Groovy's "awesome" implicit variable within closures
+             JavaCompile jc = it.javaCompile
+             List<String> args = jc.options.compilerArgs
+             args.add('-Werror')
+             // note: the "-processing" flag doesn't seem to work.  Turning on any "Xlint" flag
+             // causes the processing flag to be set (but not any of the others), and there's no
+             // apparent way to turn it off.  Hooray!  I'm leaving the flag here in case anyone
+             // figures this out later.
+             args.add('-Xlint:rawtypes,unchecked,-processing')
+             jc.options.warnings = true
+         }*/
+    }
+}

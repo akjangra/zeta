@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 import timber.log.Timber;
+import zeta.android.myntra.MyntraEngineEnvironment;
 
 public class DebugSharedPreferences {
 
@@ -18,7 +19,39 @@ public class DebugSharedPreferences {
     private static final String KEY_ENABLE_LEAKY_CANARY = "KEY_ENABLE_LEAKY_CANARY";
     private static final String KEY_HTTP_LOGGING_LEVEL = "KEY_HTTP_LOGGING_LEVEL";
 
+    private static final String KEY_MYNTRA_SEARCH_ENVIRONMENT = "KEY_MYNTRA_SEARCH_ENVIRONMENT";
+
+    // All possible environment values
+    private static final String
+            VALUE_ENV_PROD = "Production",
+            VALUE_ENV_STAGE = "Stage",
+            VALUE_ENV_UAT = "UAT";
+
+    private static final String VALUE_ENVIRONMENT_DEFAULT = VALUE_ENV_PROD;
+
     private final Context mContext;
+
+    public enum Environment {
+        Production(VALUE_ENV_PROD),
+        Stage(VALUE_ENV_STAGE),
+        UAT(VALUE_ENV_UAT);
+
+        public String prefValue;
+
+        Environment(String value) {
+            prefValue = value;
+        }
+
+        static Environment from(String value) {
+            for (Environment env : values()) {
+                if (env.prefValue.equalsIgnoreCase(value)) {
+                    return env;
+                }
+            }
+            // default to UAT.
+            return UAT;
+        }
+    }
 
     public DebugSharedPreferences(Context context) {
         mContext = context;
@@ -58,6 +91,16 @@ public class DebugSharedPreferences {
 
     public void saveTinyDancerEnabled(boolean enableTinyDancer) {
         saveBoolean(KEY_ENABLE_TINY_DANCER, enableTinyDancer);
+    }
+
+    public Environment getCurrentMyntraSearchEnvironment() {
+        SharedPreferences prefs = getDebugPrefs();
+        String key = prefs.getString(KEY_MYNTRA_SEARCH_ENVIRONMENT, VALUE_ENVIRONMENT_DEFAULT);
+        return Environment.from(key);
+    }
+
+    public void setCurrentMyntraSearchEnvironment(Environment environment) {
+        saveString(KEY_MYNTRA_SEARCH_ENVIRONMENT, environment.prefValue);
     }
 
     @NonNull

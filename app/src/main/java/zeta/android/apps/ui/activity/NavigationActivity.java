@@ -28,8 +28,8 @@ import zeta.android.apps.presenter.NavigationPresenter;
 import zeta.android.apps.ui.activity.navigation.NavigationFragmentManager;
 import zeta.android.apps.ui.common.BaseViews;
 import zeta.android.apps.ui.fragment.DebugFragment;
+import zeta.android.apps.ui.fragment.search.SearchResultFragment;
 import zeta.android.apps.ui.presentation.NavigationPresentation;
-
 
 public class NavigationActivity extends BaseNavigationActivity implements NavigationPresentation {
 
@@ -104,7 +104,7 @@ public class NavigationActivity extends BaseNavigationActivity implements Naviga
         mViews.navigationView.setNavigationItemSelectedListener(this);
 
         if (savedInstanceState == null) {
-            // mNavigationFragmentManager.addAsBaseFragment(HomeFragment.newInstance());
+            mNavigationFragmentManager.addAsBaseFragment(SearchResultFragment.newInstance());
         }
     }
 

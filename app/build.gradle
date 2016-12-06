@@ -116,18 +116,11 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
-    //PLAY SERVICES
-    compile libraries.appIndexing
-    compile libraries.playServicesAd
-    compile libraries.playServicesGcm
-    compile libraries.playServicesMaps
-    compile libraries.playServicesLocation
+    compile project(':myntra')
 
     //SUPPORT LIBS
     compile libraries.supportV13
     compile libraries.supportDesign
-    compile libraries.supportCardView
     compile libraries.supportMultiDex
     compile libraries.supportAppCompat
     compile libraries.supportRecyclerView
@@ -156,6 +149,7 @@ dependencies {
     compile libraries.okHttp3LogInterceptor
     compile libraries.retrofit
     compile libraries.retrofitGsonConverter
+    compile libraries.networkSampler
 
     //PROGRAMMING
     compile libraries.rxJava
@@ -187,8 +181,9 @@ dependencies {
     testCompile libraries.robolectric
     testCompile libraries.equalsVerifier
     testCompile libraries.okHttpMockWebServer
-
+    
     androidTestCompile libraries.dexmaker
+    androidTestCompile libraries.mockitoCore
     androidTestCompile libraries.espressoCore
     androidTestCompile libraries.dexmakerMockito
     androidTestCompile libraries.supportTestRules

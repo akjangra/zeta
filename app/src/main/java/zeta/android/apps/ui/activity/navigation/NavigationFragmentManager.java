@@ -87,7 +87,6 @@ public class NavigationFragmentManager {
         addFragmentToBackStackWithoutReplace(fragment, getDefaultTagForFragment(fragment));
     }
 
-
     public void addFragmentToBackStack(Fragment fragment, AnimationType animationType) {
         addFragmentToBackStack(fragment, animationType, getDefaultTagForFragment(fragment));
     }

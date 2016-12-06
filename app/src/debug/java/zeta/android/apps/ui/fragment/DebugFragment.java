@@ -29,6 +29,7 @@ import zeta.android.apps.R;
 import zeta.android.apps.di.component.ZetaAppComponent;
 import zeta.android.apps.presenter.DebugPresenter;
 import zeta.android.apps.ui.common.BaseViews;
+import zeta.android.apps.ui.fragment.common.BaseNavigationFragment;
 import zeta.android.apps.ui.presentation.DebugPresentation;
 
 @ParametersAreNonnullByDefault
@@ -206,7 +207,7 @@ public class DebugFragment extends BaseNavigationFragment implements DebugPresen
     }
 
     private void restartAppInternal(long delayMillis) {
-        if (getActivity() == null) {
+        if (mViews == null) {
             return;
         }
         PendingIntent i = PendingIntent.getActivity(

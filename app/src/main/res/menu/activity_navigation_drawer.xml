@@ -11,12 +11,12 @@
         <item
             android:id="@+id/nav_score"
             android:icon="@drawable/ic_chat_black_48dp"
-            android:title="@string/zeta_navigation_score" />
+            android:title="@string/zeta_navigation_accounts" />
 
         <item
             android:id="@+id/nav_flickr"
             android:icon="@drawable/ic_people_black_48dp"
-            android:title="@string/zeta_navigation_flickr" />
+            android:title="@string/zeta_navigation_my_orders" />
 
     </group>
 
@@ -26,7 +26,7 @@
             <item
                 android:id="@+id/nav_favorites"
                 android:icon="@drawable/ic_bookmark_black_48dp"
-                android:title="@string/zeta_navigation_sub_menu_favorite" />
+                android:title="@string/zeta_navigation_sub_menu_refer" />
 
             <item
                 android:id="@+id/nav_settings"
