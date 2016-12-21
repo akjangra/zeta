@@ -44,14 +44,14 @@ android {
 
     productFlavors {
 
-        free {
-            applicationIdSuffix ".free"
+        full {
+            applicationIdSuffix ".full"
             versionCode 3
             versionName "1.0.3.1"
         }
 
-        paid {
-            applicationIdSuffix ".paid"
+        lite {
+            applicationIdSuffix ".lite"
             versionCode 3
             versionName "1.0.3.2"
         }
