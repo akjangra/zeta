@@ -5,7 +5,7 @@ apply from: 'dependencies.gradle'
 
 buildscript {
     // Gradle will not find vars defined in an external file when referring to them
-    // in the buildscript block, unless you link it from the buildscript block, too.
+    // in the build script block, unless you link it from the build script block, too.
     apply from: 'dependencies.gradle'
 
     repositories {
