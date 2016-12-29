@@ -21,12 +21,14 @@ public class ConfigModule {
     @Provides
     MyntraEngineConfig provideConfig(Context context, DebugSharedPreferences sharedPreferences) {
         //Debug app uses 10 min's max age cache policy
-        Environment myntraSearchEnvironment = sharedPreferences.getCurrentMyntraSearchEnvironment();
+        final Environment devApiEnvironment = sharedPreferences.getCurrentDevApiEnvironment();
+        final Environment idpApiEnvironment = sharedPreferences.getCurrentIdpApiEnvironment();
         final MyntraEngineCachePolicy cachePolicy = MyntraEngineCachePolicy.create(context.getCacheDir())
                 .setCacheMaxAgeInSeconds(TimeUnit.MINUTES.toMinutes(10))
                 .build();
         return MyntraEngineConfig.create()
-                .setMyntraEngineEnvironment(transform(myntraSearchEnvironment))
+                .setDevApiEnvironment(transform(devApiEnvironment))
+                .setIdpApiEnvironment(transform(idpApiEnvironment))
                 .setCachePolicy(cachePolicy)
                 .build();
     }

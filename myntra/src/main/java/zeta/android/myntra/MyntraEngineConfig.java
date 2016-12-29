@@ -12,15 +12,18 @@ public abstract class MyntraEngineConfig implements Parcelable {
 
     public static Builder create() {
         return new AutoValue_MyntraEngineConfig.Builder()
-                .setMyntraEngineEnvironment(Environment.PROD);
+                .setDevApiEnvironment(Environment.PROD)
+                .setIdpApiEnvironment(Environment.PROD);
     }
 
     @Nullable
     public abstract MyntraEngineCachePolicy getCachePolicy();
 
     @Environment
-    public abstract int getMyntraEngineEnvironment();
+    public abstract int getDevApiEnvironment();
 
+    @Environment
+    public abstract int getIdpApiEnvironment();
     //Add more env if we are using more API's later!
 
     @AutoValue.Builder
@@ -28,7 +31,9 @@ public abstract class MyntraEngineConfig implements Parcelable {
 
         public abstract Builder setCachePolicy(@Nullable MyntraEngineCachePolicy cachePolicy);
 
-        public abstract Builder setMyntraEngineEnvironment(@Environment int environment);
+        public abstract Builder setDevApiEnvironment(@Environment int environment);
+
+        public abstract Builder setIdpApiEnvironment(@Environment int environment);
 
         public abstract MyntraEngineConfig build();
     }

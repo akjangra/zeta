@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 import timber.log.Timber;
-import zeta.android.myntra.MyntraEngineEnvironment;
 
 public class DebugSharedPreferences {
 
@@ -19,7 +18,8 @@ public class DebugSharedPreferences {
     private static final String KEY_ENABLE_LEAKY_CANARY = "KEY_ENABLE_LEAKY_CANARY";
     private static final String KEY_HTTP_LOGGING_LEVEL = "KEY_HTTP_LOGGING_LEVEL";
 
-    private static final String KEY_MYNTRA_SEARCH_ENVIRONMENT = "KEY_MYNTRA_SEARCH_ENVIRONMENT";
+    private static final String KEY_DEV_API_ENVIRONMENT = "KEY_DEV_API_ENVIRONMENT";
+    private static final String KEY_IDP_API_ENVIRONMENT = "KEY_IDP_API_ENVIRONMENT";
 
     // All possible environment values
     private static final String
@@ -57,10 +57,6 @@ public class DebugSharedPreferences {
         mContext = context;
     }
 
-    private SharedPreferences getDebugPrefs() {
-        return mContext.getSharedPreferences(KEY_DEBUG_PREFS, Context.MODE_PRIVATE);
-    }
-
     public boolean getLeakyCanaryEnabled() {
         return getDebugPrefs().getBoolean(KEY_ENABLE_LEAKY_CANARY, false);
     }
@@ -93,14 +89,24 @@ public class DebugSharedPreferences {
         saveBoolean(KEY_ENABLE_TINY_DANCER, enableTinyDancer);
     }
 
-    public Environment getCurrentMyntraSearchEnvironment() {
+    public Environment getCurrentDevApiEnvironment() {
         SharedPreferences prefs = getDebugPrefs();
-        String key = prefs.getString(KEY_MYNTRA_SEARCH_ENVIRONMENT, VALUE_ENVIRONMENT_DEFAULT);
+        String key = prefs.getString(KEY_DEV_API_ENVIRONMENT, VALUE_ENVIRONMENT_DEFAULT);
         return Environment.from(key);
     }
 
-    public void setCurrentMyntraSearchEnvironment(Environment environment) {
-        saveString(KEY_MYNTRA_SEARCH_ENVIRONMENT, environment.prefValue);
+    public Environment getCurrentIdpApiEnvironment() {
+        SharedPreferences prefs = getDebugPrefs();
+        String key = prefs.getString(KEY_IDP_API_ENVIRONMENT, VALUE_ENVIRONMENT_DEFAULT);
+        return Environment.from(key);
+    }
+
+    public void setCurrentDevApiEnvironment(Environment environment) {
+        saveString(KEY_DEV_API_ENVIRONMENT, environment.prefValue);
+    }
+
+    public void setCurrentIdpApiEnvironment(Environment environment) {
+        saveString(KEY_IDP_API_ENVIRONMENT, environment.prefValue);
     }
 
     @NonNull
@@ -139,4 +145,9 @@ public class DebugSharedPreferences {
                 .putInt(key, value)
                 .apply();
     }
+
+    private SharedPreferences getDebugPrefs() {
+        return mContext.getSharedPreferences(KEY_DEBUG_PREFS, Context.MODE_PRIVATE);
+    }
+
 }

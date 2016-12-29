@@ -20,14 +20,17 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import zeta.android.myntra.environments.DevApiEnvironment;
+import zeta.android.myntra.environments.IdpApiEnvironment;
 import zeta.android.myntra.interceptors.CacheHeadersInterceptor;
 import zeta.android.myntra.interceptors.DevApiHeadersInterceptor;
+import zeta.android.myntra.interceptors.IdpApiHeadersInterceptor;
 import zeta.android.myntra.interceptors.JsonContentTypeHeadersInterceptor;
 import zeta.android.myntra.interceptors.XmlContentTypeHeadersInterceptor;
 import zeta.android.myntra.qualifiers.okhttp.JsonContentTypeOkHttp;
 import zeta.android.myntra.qualifiers.okhttp.MyntraOkHttp;
 import zeta.android.myntra.qualifiers.okhttp.XmlContentTypeOkHttp;
 import zeta.android.myntra.qualifiers.retrofit.RetrofitDevApi;
+import zeta.android.myntra.qualifiers.retrofit.RetrofitIdpApi;
 
 @Module
 @ParametersAreNonnullByDefault
@@ -93,8 +96,14 @@ public class MyntraEngineModule {
     //region environments
     @Provides
     @Singleton
-    DevApiEnvironment providesMyntraEngineEnvironment(MyntraEngineConfig myntraEngineConfig) {
-        return new DevApiEnvironment(myntraEngineConfig.getMyntraEngineEnvironment());
+    DevApiEnvironment providesDevApiEnvironment(MyntraEngineConfig myntraEngineConfig) {
+        return new DevApiEnvironment(myntraEngineConfig.getDevApiEnvironment());
+    }
+
+    @Provides
+    @Singleton
+    IdpApiEnvironment providesIdpApiEnvironment(MyntraEngineConfig myntraEngineConfig) {
+        return new IdpApiEnvironment(myntraEngineConfig.getIdpApiEnvironment());
     }
     //Add more env here
 
@@ -127,6 +136,21 @@ public class MyntraEngineModule {
                 .baseUrl(myntraDevApiEnvironment.getBaseUrl())
                 .client(okHttpClient.newBuilder()
                         .addNetworkInterceptor(new DevApiHeadersInterceptor())
+                        .build())
+                .build();
+    }
+
+
+    @Provides
+    @Singleton
+    @RetrofitIdpApi
+    Retrofit providesMyntraIdpApiRetrofit(IdpApiEnvironment idpApiEnvironment,
+                                          @JsonContentTypeOkHttp OkHttpClient okHttpClient,
+                                          BaseRetrofitFactory baseRetrofitFactory) {
+        return baseRetrofitFactory.newRetrofitBuilder()
+                .baseUrl(idpApiEnvironment.getBaseUrl())
+                .client(okHttpClient.newBuilder()
+                        .addNetworkInterceptor(new IdpApiHeadersInterceptor())
                         .build())
                 .build();
     }

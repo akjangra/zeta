@@ -30,7 +30,6 @@ import zeta.android.apps.ui.fragment.search.presentation.SearchResultPresentatio
 import zeta.android.apps.ui.fragment.search.presenter.SearchPresenterParam;
 import zeta.android.apps.ui.fragment.search.presenter.SearchResultPresenter;
 import zeta.android.myntra.models.products.ProductGist;
-import zeta.android.myntra.models.products.ProductId;
 import zeta.android.myntra.modules.SearchModule;
 import zeta.android.utils.view.ViewUtils;
 import zeta.android.view.DividerItemDecoration;
@@ -163,6 +162,7 @@ public class SearchResultFragment extends BaseNavigationFragment implements Sear
         final Context context = getContext();
         mListViewAdapter = new SearchAdapter();
         mListLayoutManager = new LinearLayoutManager(context);
+        mListLayoutManager.setInitialPrefetchItemCount(4);
         mListLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         mViews.listView.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));

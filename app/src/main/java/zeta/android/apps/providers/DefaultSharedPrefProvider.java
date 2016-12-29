@@ -15,7 +15,8 @@ public class DefaultSharedPrefProvider implements SharedPrefProvider {
         mContext = context;
     }
 
-    private SharedPreferences getZetaPrefs() {
+    @Override
+    public SharedPreferences getZetaPrefs() {
         return mContext.getSharedPreferences(KEY_ZETA_PREFS, Context.MODE_PRIVATE);
     }
 
