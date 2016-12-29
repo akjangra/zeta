@@ -12,6 +12,10 @@ android {
     // module!*
     // defaultPublishConfig "debug"
 
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     defaultConfig {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
@@ -23,7 +27,7 @@ android {
 
     lintOptions {
         abortOnError false
-        lintConfig file("../lint.xml")
+        lintConfig file("../config/lint/lint.xml")
     }
 
     buildTypes {
