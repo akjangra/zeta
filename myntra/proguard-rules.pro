@@ -18,3 +18,4 @@
 
 -keepattributes InnerClasses
 -dontoptimize
+-keepclassmembers class zeta.android.myntra.** { *; }
