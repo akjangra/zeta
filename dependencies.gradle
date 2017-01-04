@@ -2,7 +2,7 @@ ext.versions = [
         compileSdk                        : 25,
         minSdk                            : 16,
         targetSdk                         : 24,
-        buildTools                        : "25.0.2",
+        buildTools                        : "25.0.0",
 
         supportLibVersion                 : "25.1.0",
         playServicesVersion               : "10.0.1",
